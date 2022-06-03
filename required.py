@@ -1,14 +1,10 @@
 import base64
 import hashlib
 
-from flask import Flask, request, abort
+from flask import  request, abort
 import jwt
+from constants import secret, algo, PWD_SALT, PWD_ITERATIONS
 
-
-secret = 's3cR$eT'
-algo = 'HS256'
-PWD_SALT = b'random_salt_string'
-PWD_ITERATIONS = 100_000
 
 
 def generate_password(password):  # функция перегоняет пароль в хэш
