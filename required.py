@@ -1,10 +1,9 @@
 import base64
 import hashlib
 
-from flask import  request, abort
+from flask import request, abort
 import jwt
 from constants import secret, algo, PWD_SALT, PWD_ITERATIONS
-
 
 
 def generate_password(password):  # функция перегоняет пароль в хэш
@@ -15,6 +14,7 @@ def generate_password(password):  # функция перегоняет паро
         PWD_ITERATIONS
     )
     return base64.b64encode(hash_digest)
+
 
 def auth_required(func):
     def wrapper(*args, **kwargs):
@@ -28,6 +28,7 @@ def auth_required(func):
             print("JWT Decode Exception", e)
             abort(401)
         return func(*args, **kwargs)
+
     return wrapper
 
 

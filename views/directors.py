@@ -1,5 +1,5 @@
 from flask_restx import Resource, Namespace
-from models import Movie, Director, Genre, MovieSchema, DirectorSchema, GenreSchema
+from models import Director, DirectorSchema
 from setup_db import db
 from flask import request
 from required import auth_required, admin_required
@@ -23,6 +23,7 @@ class DirectorView(Resource):
         with db.session.begin():
             db.session.add(new_director)
         return "", 204
+
 
 @directors_ns.route('/<int:did>')
 class DirectorView(Resource):

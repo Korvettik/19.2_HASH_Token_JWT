@@ -1,8 +1,6 @@
-from flask import Flask, request, abort
-from flask_restx import Resource, Api
-from flask_sqlalchemy import SQLAlchemy
+from flask import request, abort
 import jwt
-import hashlib
+
 import datetime
 import calendar
 from models import User
@@ -10,13 +8,7 @@ from flask_restx import Resource, Namespace
 from setup_db import db
 from required import secret, algo, generate_password
 
-
-
 auth_ns = Namespace('auth')
-
-
-
-
 
 
 @auth_ns.route('/')
@@ -35,8 +27,8 @@ class AuthView(Resource):
             return {"error": "Неверные учётные данные"}, 401
 
         # если все ок, делаем новый хэш из полученного пароля (с проверкой) - проверка пароля
-        user_password = generate_password(password) # делаем хэш из полученного пароля
-        if user.password != user_password:   # сравниваем хэш-пароль пользователя из бд с хэш-паролем введенным
+        user_password = generate_password(password)  # делаем хэш из полученного пароля
+        if user.password != user_password:  # сравниваем хэш-пароль пользователя из бд с хэш-паролем введенным
             return {"error": "Неверные учётные данные"}, 401
 
         # если все ок, формируем данные пользователя (спецсловарь) из базы данных (далее пригодится)
@@ -60,11 +52,6 @@ class AuthView(Resource):
         # формируем результат
         tokens = {"access_token": access_token, "refresh_token": refresh_token}
         return tokens, 201
-
-
-
-
-
 
     def put(self):
         # проверка наличия рефреш токена в теле запроса

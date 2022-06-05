@@ -1,6 +1,5 @@
-from flask import Flask, request, abort
+from flask import Flask
 from flask_restx import Api
-import jwt
 
 from setup_db import db
 from views.movies import movies_ns
@@ -50,8 +49,6 @@ def create_data(app, db):
 
         with db.session.begin():
             db.session.add_all([u1, u2, u3])
-
-
 
 
 app = create_app()

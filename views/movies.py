@@ -1,5 +1,5 @@
 from flask_restx import Resource, Namespace
-from models import Movie, Director, Genre, MovieSchema, DirectorSchema, GenreSchema
+from models import Movie, Director, Genre, MovieSchema
 from setup_db import db
 from flask import request
 from required import auth_required, admin_required
@@ -12,6 +12,7 @@ movies_schema = MovieSchema(many=True)
 
 @movies_ns.route('/')
 class MovieView(Resource):
+    @auth_required
     def get(self):
         genre_id = request.args.get('genre_id')
         director_id = request.args.get('director_id')
@@ -48,7 +49,6 @@ class MovieView(Resource):
         with db.session.begin():
             db.session.add(new_movie)
         return "", 204
-
 
 
 @movies_ns.route('/<int:mid>')

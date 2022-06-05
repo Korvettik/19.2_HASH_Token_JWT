@@ -1,5 +1,5 @@
 from flask_restx import Resource, Namespace
-from models import Movie, Director, Genre, MovieSchema, DirectorSchema, GenreSchema
+from models import Director, Genre, GenreSchema
 from setup_db import db
 from flask import request
 from required import auth_required, admin_required
@@ -23,6 +23,7 @@ class GenreView(Resource):
         with db.session.begin():
             db.session.add(new_genre)
         return "", 204
+
 
 @genre_ns.route('/<int:gid>')
 class GenreView(Resource):
@@ -49,3 +50,4 @@ class GenreView(Resource):
         db.session.delete(genre)
         db.session.commit()
         return "", 204
+

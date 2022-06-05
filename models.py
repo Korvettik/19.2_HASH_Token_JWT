@@ -62,6 +62,7 @@ class GenreSchema(Schema):
     id = fields.Int()
     name = fields.Str()
 
+
 class UserSchema(Schema):
     id = fields.Int()
     username = fields.Str()
